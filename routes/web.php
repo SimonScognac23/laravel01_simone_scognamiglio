@@ -5,22 +5,28 @@
 
 
 
+use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\PublicController; // è l'estensione che serve per dire che il file che stiamo usando esiste da un altra parte, ossia in PublicController.php
+use \App\Http\Controllers\PatriotController;
+
+
+
+
+
+
+
+
 
 //-------------------- PAGINA WELCOME  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-use Illuminate\Support\Facades\Route;
 
 // funzione che restituisce la pagina di welcome
 
-Route::get('/', function () {  // qui sono dentro la funzione che mi restituisce la vista di welcome
+Route::get('/', [PublicController::class , 'homepage'])->name('home-page');  // per aggiungere il nome a una rotta ci alleghiamo il metodo name() che accetta in ingresso una stringa che sarà l'etichetta della pagina, ci sono delle convezioni ma è un etichetta
 
-$title = 'Snaaakee!!';  //questo $title dovra arrivare dentro la pagina di welcome, e per far  cio si passa all interno della funzione scritta nella riga successiva
-
-    return view('welcome' , ['titolo'=> $title] ); //la funzione view puo accettare 2 parametri il primo è la vista e il secondo sono i dati sotto forma di array, questo array sarà di tipo chiave-valore
-
-});// nell array avro una chiave , la chiave è il nome della variabile che sarà disponibile sulla lista, mentre il valore è il contenuto ossia $title
-
+// nell array avro una chiave , la chiave è il nome della variabile che sarà disponibile sulla lista, mentre il valore è il contenuto ossia $title
+// in web.php  qui nell uri devo dire che la risposta  per questa richiesta sarà gestita all'indirizzo PublicController, tramite il  [] come primo parametro ci inserirò il controller che gestisce la logica, in questo caso si chiamerà PublicController::class, il secondo parametro è il nome della funzione in questo esempio è 'homepage'
 
 
 
@@ -39,23 +45,11 @@ $title = 'Snaaakee!!';  //questo $title dovra arrivare dentro la pagina di welco
 
 // Partendo dalla classe Route prendiamo il metodo get (per visualizzare una risorsa), la richiesta get deve partire quando l'utente digita l'uri
 // 
-Route::get('/chi-siamo' , function(){ // Qui dentro scriviamo quello che vogliamo, purche 'chi-siamo' sia parlante, perchè sarà quello che l'utente vedrà
+Route::get('/about-us' , [PublicController::class , 'chiSiamo'] )->name('chi-siamo');  // metodo name() per dare il nome a una rottaj
+
+// a partire dalla classe rote prendiamo il metodo get(per visualizzare una risorsa)
 
 
-    $arrayPatriots = [   // creo un array di patriots
-
-        ['name'=>'The', 'surname'=>'Boss',],  // creo un array dentro un array, array chiave-valore
-        ['name'=> 'Big', 'surname'=> 'Boss',],
-        ['name'=> 'Major', 'surname'=>'Zero',],
-        ['name'=>'Big', 'surname'=>'Mama',],
-
-    ];
-
-
-    return view('chiSiamo' , ['patriots'=>$arrayPatriots]);  // view--> metodo di Laravel che si occupa di dare le viste, view va a vedere in pratica i files dentro views
-// il dato che effettivamente voglio passare sarà $arrayStudents
-
-});   // a partire dalla classe rote prendiamo il metodo get(per visualizzare una risorsa)
 
 
 
@@ -70,8 +64,38 @@ Route::get('/chi-siamo' , function(){ // Qui dentro scriviamo quello che vogliam
 //------------------------------ PAGINA HIDEO KOJIMA ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+
+
 // funzione che restituisce la pagina di hideo kojima
 
-Route::get('/hideo-kojima', function () {  
-    return view('hideoKojima'); 
-});
+Route::get('/hideo-kojima',  [PatriotController::class , 'Kojima'] )->name('kojima-productions');
+
+
+
+
+
+
+
+
+
+
+//------------------------------------- PAGINA GO SOMEWHERE ----------------------------------------------------
+
+
+
+// rotta parametrica  >>> rotta che accetta un parametro, il parametro che serve per fare la rotta parametrica è 'id'
+// stiamo passando il parametro all'uri
+
+Route::get('/Patriot/dettaglio/{id}' , [PatriotController::class, 'patriot'] )->name('la-li-lu-le-lo');
+// per dire che all' uri deve accettare un parametro andremo a inserire questa sintassi -->{id}<---- con dentro il nome del parametro
+
+
+
+
+
+
+
+
+//---------------------------------------------PAGINA SERVIZI--------------------------------------------------------------------------------------------
+
+Route::get('/services' , [PublicController::class , 'servizi'] )->name('nostri-servizi');

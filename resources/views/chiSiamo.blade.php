@@ -1,81 +1,109 @@
 <!doctype html>
-
 <html lang="en">
 
-
-  <head>
+<head>
+    <!-- Impostazione del charset e della viewport per la responsività -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
+
+    <!-- Link per il font Roboto, Montserrat e Poppins tramite Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    <!-- Collegamento al file CSS di Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  </head>
 
-  <body>
+    <!-- Collegamento al file di stile personalizzato (style.css) -->
+    <link rel="stylesheet" href="/style.css"> 
+</head>
 
+<body>
 
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <!-- Pulsante per il menu mobile (toggle) -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Menu di navigazione che appare quando la navbar è espansa -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- Link alla Home page -->
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{route('home-page')}}">Home</a> <!-- URI per la home page -->
+                    </li>
+                    <!-- Link alla pagina "Chi siamo" -->
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{route('chi-siamo')}}">Chi siamo</a> <!-- URI per "Chi siamo" -->
+                    </li>
+                    <!-- Link alla pagina "Hideo Kojima" -->
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{route('kojima-productions')}}">Hideo Kojima</a> <!-- URI per "Hideo Kojima" -->
+                    </li>
+                    <!-- Link alla pagina "I nostri servizi" -->
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{route('nostri-servizi')}}">I nostri servizi</a> <!-- URI per "I nostri servizi" -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
 
-  <!--navbar start-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-        <li class="nav-item">
-          <a class="nav-link active" href="/">Home</a>  <!--uri della home-->
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link active" href="/chi-siamo">Chi siamo</a> <!--uri di chi siamo-->
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link active" href="/hideo-kojima">Hideo Kojima</a> <!--uri di hideo kojima-->
-          
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<!--navbar end-->
-
-
-
-  <div class="container-fluid bg-body-secondary vh-100">
+    <!-- Sezione principale del contenuto -->
+    <div class="container-fluid vh-100">
+        <!-- Righe per centrare il contenuto -->
         <div class="row justify-content-center align-items-center">
-           <div class="col-12">
-               <h1 class="text-center py-5">
-
-            Chi siamo 
-
+            <div class="col-12">
+                <!-- Titolo principale della sezione -->
+                <h1 class="text-center py-5">
+                    Alcuni personaggi della saga di Metal Gear Solid
                 </h1>
             </div>
-         </div>
-
-         <div class="row">
-
-        
-        <div class="col-12">
-          <ul>  <!-- Dentro ul avro bisogno dei list item, e i list item dovranno contenere gli elementi ciclati di $students e quindi farò il foreach -->
-
-          @foreach ( $patriots as $patriot ) <!-- $student sarà la variabile d'appoggio che serve per ciclare l'array $students -->
-
-<li> {{$patriot['name']}} {{$patriot['surname']}}  </li>  <!-- uso $student per arrivare al singolo studente, e scrivero [name] per vedere solo il nome -->
-
-          @endforeach
-
-          </ul>
         </div>
-         <!-- la graffa è come se stesse facendo l' echo, e l'echo non puo stampare un dato complesso -->
 
-         </div>
-   </div>
+        <!-- Lista dei personaggi della saga -->
+        <div class="row">
+            <!-- Lista dei nomi Patriots (senza card) -->
+            <div class="col-12">
+                <ul class="list-unstyled"> <!-- Aggiunto "list-unstyled" per rimuovere i punti di elenco e margini -->
+                    @foreach ( $patriots as $patriot )
+                        <!-- Visualizza il nome e cognome di ogni personaggio -->
+                        <li> {{$patriot['name']}} {{$patriot['surname']}} </li>
+                    @endforeach
+                </ul>
+            </div>
+            <!-- Fine lista dei nomi Patriots -->
 
+            <!-- Lista dei personaggi con card (immagini e dettagli) -->
+            <div class="row justify-content-center align-items-start">
+                @foreach ( $patriots as $patriot )
+                    <div class="col-12 col-md-4 col-lg-3 mb-4"> <!-- Ogni card occuperà un terzo della larghezza su dispositivi medi o più grandi -->
+                        <div class="card mx-auto h-100" style="width: 18rem;"> <!-- Card responsiva con altezza fissa -->
+                            <!-- Immagine del personaggio -->
+                            <img src="{{ $patriot['photo'] }}" class="card-img-top" alt="{{ $patriot['name'] }} {{ $patriot['surname'] }} Photo">
+                            <div class="card-body d-flex flex-column"> <!-- Flexbox per organizzare il contenuto all'interno della card -->
+                                <h5 class="card-title"> {{$patriot['name']}} {{$patriot['surname']}} </h5> <!-- Nome del personaggio -->
+                                <p class="card-text"></p> <!-- Sezione per descrizione (vuota per ora) -->
+                                
+                                <!-- Link per visualizzare i dettagli del personaggio -->
+                                <a href="{{ route('la-li-lu-le-lo' , ['id' => $patriot['id']]) }}" class="btn btn-outline-secondary mt-auto">Vai al dettaglio</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <!-- Fine lista dei personaggi con card -->
 
+        </div>
+    </div>
 
+    <!-- Inclusione degli script di Bootstrap per funzionalità interattive come il menu mobile -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
+
+</body>
+
 </html>
